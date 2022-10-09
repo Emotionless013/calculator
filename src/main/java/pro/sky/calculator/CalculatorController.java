@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.calculator.Exeptions.DevideZeroExeption;
 
 @RestController
 @RequestMapping("/calculator")
@@ -35,6 +36,10 @@ public class CalculatorController {
     }
     @GetMapping("/divide")
     public String divide(@RequestParam double num1, @RequestParam double num2) {
-        return calculatorService.divide(num1, num2);
+        try {
+            return calculatorService.divide(num1, num2);
+        } catch (DevideZeroExeption e) {
+            return "Деление на 0 недопустимо!";
+        }
     }
 }
